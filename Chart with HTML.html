@@ -1,39 +1,80 @@
-python
-Always show details
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Sales Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #chart-container {
+            width: 80%;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart-container">
+        <canvas id="salesChart"></canvas>
+    </div>
 
-Copy code
-import matplotlib.pyplot as plt
-import numpy as np
-
-# Sample data
-months = ['January', 'February', 'March', 'April']
-products = ['Product A', 'Product B', 'Product C', 'Product D']
-
-# Fake sales data (in units sold)
-sales_data = {
-    'Product A': [150, 200, 180, 220],
-    'Product B': [300, 330, 310, 400],
-    'Product C': [100, 120, 130, 150],
-    'Product D': [50, 80, 70, 90]
-}
-
-x = np.arange(len(months))  # the label locations
-width = 0.2  # the width of the bars
-
-fig, ax = plt.subplots(figsize=(10, 6))
-
-# Plotting the data for each product
-for i, (product, sales) in enumerate(sales_data.items()):
-    ax.bar(x + i * width, sales, width, label=product)
-
-# Labels and title
-ax.set_xlabel('Months')
-ax.set_ylabel('Units Sold')
-ax.set_title('Product Sales Over Months')
-ax.set_xticks(x + width * 1.5)
-ax.set_xticklabels(months)
-ax.legend()
-
-plt.tight_layout()
-plt.show()
-Product Sales Over Months
+    <script>
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April'],
+                datasets: [
+                    {
+                        label: 'Product A',
+                        data: [150, 200, 180, 220],
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Product B',
+                        data: [300, 330, 310, 400],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Product C',
+                        data: [100, 120, 130, 150],
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Product D',
+                        data: [50, 80, 70, 90],
+                        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
